@@ -7,5 +7,6 @@ public class HelloWorld {
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Hello, World!!!");
 		
+		scn.nextInt();
 	}
 }
