@@ -4,80 +4,76 @@ import java.util.Scanner;
 
 public class LeeSoJeong {
 	public static void main(String[] args) {
-		Scanner scn = new Scanner(System.in);
-		
-		String[] name = null;
-		int[] mat = null;
-		int[] kok= null;
-		
-		
-		while(true) {
-			showMenu();
-			int choice = read("번호를 선택하세요>>");
-			
-			if(choice == 1) {
-				int size = createStudent();
-				name = new String[size];
-				mat = new int[size];
-				kok = new int[size];
-			}else if (choice == 2) {
-				inputValue(name,kok,mat);								
-			}else if (choice == 3) {
-				//showList(scores);				
-			}else if (choice == 4) {
-				//analysis(scores);				
-			}else if (choice == 5) {
-				break;				
+		// 1.학생 수 지정, 2.학생이름입력, 3.출력 4.종료
+				String[] name = null;
+				String menu;
+				
+				while (true) {
+					showMenu();
+					menu = choice("번호를 선택하세요>>");
+					
+					if (menu.equals("1")) {
+						int size = Integer.parseInt(studentSize());
+						name = new String[size];
+					} else if (menu.equals("2")) {
+						inputName(name);
+					} else if (menu.equals("3")) {
+						showStudent(name);
+					} else if (menu.equals("4")) {
+						break;
+					}
+				}
+				System.out.println("==============끝.==================");
+				
 			}
 			
+			public static void showMenu() {
+				System.out.println("==============MENU=================");
+				System.out.println("1.학생수지정 2.학생이름입력 3.출력 4.종료");
+			}
+			
+			public static String choice(String a) {
+				System.out.println(a);
+				Scanner scn = new Scanner(System.in);
+				String num = scn.nextLine();
+				
+				return num;
+			}
+			
+			public static String studentSize() {
+				String size = choice("학생수를 입력하세요>>");
+				return size;
+			}
+			
+			public static void inputName(String[] ary) {
+				if(ary == null) {
+					System.out.println("학생수 먼저 입력해주세요.");
+					return;	
+				}
+				
+				for(int i=0;i<ary.length;i++) {
+					//Scanner scn1 = new Scanner(System.in);
+					//System.out.println((i+1) + "번째 학생 이름을 입력해주세요.");
+					//ary[i] = scn1.nextLine();
+					ary[i] = choice("학생이름을 입력하세요.");
+				}		
+			}
+//			
+//			public static String inPut(String msg) {
+//				Scanner scn1 = new Scanner(System.in);
+//				System.out.println(msg);
+//				String msg1 = scn1.nextLine();
+//				
+//				return msg1;
+//			}
+			
+			public static void showStudent(String[] ary) {
+				if(ary == null) {
+					System.out.println("먼저 학생수를 입력하세요.");
+					return;	
+				}
+				for(int i = 0; i < ary.length; i++) {
+					System.out.println((i+1) + "번째 학생: " + ary[i]);
+				}
+			}
 		}
-		
-		System.out.println("끝.");
-		
-
-//
-//		System.out.println("[입력한 내용]");
-//		//System.out.printf("이름:%s\t 국어점수:%d\t 수학점수:%d\n", name, konum, mtnum);
-//
-//		double avg = (double) (konum + mtnum) / 2;
-//
-//		if (avg > 60) {
-//			System.out.printf("평균 %f으로 합격입니다. \n", avg);
-//		} else {
-//			System.out.printf("평균 %f으로 탈락입니다. 더 노력하세요. \n", avg);
-//		}
-	}
-	
-	public static void showMenu() {
-		System.out.println("1.학생 수 입력 2.학생 점수 입력 3.전체보기 4.평균 5.종료");
-	}
-	
-	public static int createStudent() {
-		int cnt = read("학생수를 입력하세요.");
-		return cnt;
-	}
-	
-	public static void inputValue(String[] ary, int[] ary1, int[] ary2) {
-		if(ary == null) {
-			System.out.println("다시 선택하세요.");
-			return;	
-		}
-		
-		
-		for(int i=0;i<ary.length;i++) {
-			Scanner scn = new Scanner(System.in);
-		    System.out.println((i+1) + "번째 학생 이름을 입력해주세요. ");
-			ary[i] = scn.nextLine();
-			ary1[i] = read("학생 국어점수를 입력하세요.");
-			ary2[i] = read("학생 수학점수를 입력하세요.");
-		}
-	}
-	
-	public static int read(String a) {
-		Scanner scn = new Scanner(System.in);
-		System.out.println(a);
-		int num = scn.nextInt();
-		
-		return num;
-	}
-}
